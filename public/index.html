@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sightreader</title>
+<style>
+  :root { --bg: #f6f5f1; --ink: #1c1c1c; --accent: #2b6cb0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Georgia, 'Times New Roman', serif; background: var(--bg); color: var(--ink); }
+  header { padding: 14px 24px; border-bottom: 1px solid #d8d4cc; background: #fff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  h1 { font-size: 1.25rem; margin: 0; letter-spacing: 0.04em; }
+  main { padding: 16px 24px; max-width: 1100px; margin: 0 auto; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; background: #fff; border: 1px solid #d8d4cc; border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; }
+  label { font-size: 0.8rem; display: flex; flex-direction: column; gap: 3px; font-family: system-ui, sans-serif; }
+  select, input[type=number] { font-size: 0.85rem; padding: 4px 6px; border: 1px solid #b9b4a9; border-radius: 4px; background: #fff; font-family: system-ui, sans-serif; }
+  button { font-family: system-ui, sans-serif; font-size: 0.85rem; padding: 7px 14px; border: 1px solid var(--accent); background: var(--accent); color: #fff; border-radius: 5px; cursor: pointer; }
+  button.secondary { background: #fff; color: var(--accent); }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #score { background: #fff; border: 1px solid #d8d4cc; border-radius: 8px; padding: 10px; overflow-x: auto; min-height: 220px; }
+  #playBar { display: flex; gap: 8px; align-items: center; margin-top: 12px; font-family: system-ui, sans-serif; font-size: 0.9rem; }
+  #status { margin-left: auto; color: #555; }
+  .hidden { display: none; }
+  footer { text-align: center; font-size: 0.75rem; color: #777; padding: 16px; font-family: system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Sightreader</h1>
+  <button id="newBtn" class="secondary">New Exercise</button>
+</header>
+<main>
+  <div class="controls" id="controls">
+    <label>Clef
+      <select id="clef"><option value="treble">Treble</option><option value="bass">Bass</option></select>
+    </label>
+    <label>Key
+      <select id="key">
+        <option>C</option><option>G</option><option>D</option><option>A</option><option>E</option><option>B</option>
+        <option>F</option><option>Bb</option><option>Eb</option>
+      </select>
+    </label>
+    <label>Mode
+      <select id="mode"><option>major</option><option>minor</option></select>
+    </label>
+    <label>Time
+      <select id="ts"><option>4/4</option><option>3/4</option><option>2/4</option><option>6/8</option></select>
+    </label>
+    <label>Measures
+      <input type="number" id="measures" min="1" max="32" value="8">
+    </label>
+    <label>Difficulty
+      <select id="difficulty"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select>
+    </label>
+    <label>Tempo
+      <input type="number" id="tempo" min="40" max="240" value="90">
+    </label>
+    <label>Rests %
+      <input type="number" id="rests" min="0" max="50" value="10">
+    </label>
+  </div>
+  <div id="score"></div>
+  <div id="playBar">
+    <button id="playBtn" disabled>▶ Play</button>
+    <button id="stopBtn" class="secondary" disabled>■ Stop</button>
+    <label><input type="checkbox" id="metronome"> Metronome</label>
+    <span id="status"></span>
+  </div>
+</main>
+<footer>Self-hosted practice tool · scores are generated locally on your server</footer>
+<script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.3/build/cjs/vexflow.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
